@@ -15,10 +15,10 @@ provider "aws" {
 }
 
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.VPC_cidr_block
 
   tags = {
-    Name = "Project VPC"
+    Name = var.VPC_name 
   }
 }
 
@@ -46,7 +46,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "Project VPC IG"
+    Name = var.IG_name
   }
 }
 
@@ -56,6 +56,6 @@ resource "aws_security_group" "allow_tls" {
   vpc_id      = aws_vpc.main.id
 
   tags = {
-    Name = "allow_tls"
+    Name = var.SG_name
   }
 }
